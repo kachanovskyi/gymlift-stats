@@ -276,3 +276,50 @@ html, body {
     cursor: pointer;
     background-color: #cccccc;
 }
+
+/*highcharts styles*/
+.highcharts-background {
+    background-color: #F9F9F9;
+}
+
+.highcharts-button.highcharts-contextbutton {
+    display: none !important;
+}
+
+.highcharts-axis.highcharts-yaxis,
+.highcharts-credits,
+.highcharts-title {
+    display: none;
+}
+
+.highcharts-container {
+    border: solid #ddd;
+    border-width: 1px 0;
+}
+
+/*charts styles*/
+.chart-top-block {
+    height: 52px;
+    width: 100%;
+    display: table;
+    padding-left: 33px;
+    padding-right: 10px;
+}
+.chart-top-block p {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.timeframe-select {
+    background-color: #ffffff;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url("../img/arrow-down.svg") no-repeat right center;
+    background-size: 14%;
+    border-radius: 0;
+    height: 76%;
+    padding-left: 12px;
+    padding-right: 48px;
+    background-position: 88% 50%;
+}

@@ -1,8 +1,20 @@
 $(document).ready(function () {
 
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    var day = days[ (new Date()).getDay() ];
+    console.log(day);
+    var month = months[ (new Date()).getMonth() ];
+    console.log(month);
+
     var date = {
         val: $("#datepicker").data('date')
     };
+
+    var dateParts = date.val.split("-");
+
+    console.log((new Date(dateParts[2], (dateParts[1] - 1), dateParts[0])));
 
     loadProfile();
 
@@ -13,6 +25,16 @@ $(document).ready(function () {
             date.val = $("#datepicker").data('date');
             loadExercises(date);
         });
+    });
+
+    $('#squatTimeframe').on("change", function () {
+        initGraph("squat", $(this).val());
+    });
+    $('#benchPressTimeframe').on("change", function () {
+        initGraph("bench", $(this).val());
+    });
+    $('#deadliftTimeframe').on("change", function () {
+        initGraph("deadlift", $(this).val());
     });
 
 
@@ -185,92 +207,127 @@ $(document).ready(function () {
         });
     }
 
-    function loadSquatGraph(param) {
-        $.ajax({
-            type: "GET",
-            url: './data/profile.json',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            // data: JSON.stringify(date),
+    // function loadSquatGraph(param) {
+    //     $.ajax({
+    //         type: "GET",
+    //         url: './data/profile.json',
+    //         contentType: "application/json; charset=utf-8",
+    //         dataType: "json",
+    //         // data: JSON.stringify(date),
+    //
+    //         success: function (data) {
+    //
+    //             var profile = $($('.profile')[0]),
+    //                 rank = profile.find( $('.img-container .rank') );
+    //
+    //             if( data.rank !== null ) {
+    //                 rank.text(data.rank);
+    //             } else {
+    //                 rank.css('display', 'none');
+    //             }
+    //
+    //         },
+    //         error: function () {
+    //             console.log("Internal Server Error. Not possible to load profile data.");
+    //         }
+    //     });
+    // }
+    
+    function initGraph(param, timeframe) {
+        var dataUrl = "./data/squatWeek.json";
+        var chart = "squatGraph";
 
-            success: function (data) {
+        if(timeframe === "month") {
+            dataUrl = "./data/squatMonth.json";
+        }
 
-                var profile = $($('.profile')[0]),
-                    rank = profile.find( $('.img-container .rank') );
+        if(param === "bench") {
+            dataUrl = "./data/benchWeek.json";
 
-                if( data.rank !== null ) {
-                    rank.text(data.rank);
-                } else {
-                    rank.css('display', 'none');
-                }
-
-            },
-            error: function () {
-                console.log("Internal Server Error. Not possible to load profile data.");
+            if(timeframe === "month") {
+                dataUrl = './data/benchMonth.json';
             }
+
+            chart = "benchPressGraph";
+        } else if(param === "deadlift") {
+            dataUrl = "./data/deadliftWeek.json";
+
+            if(timeframe === "month") {
+                dataUrl = './data/deadliftMonth.json';
+            }
+
+            chart = "deadliftGraph";
+        }
+
+        $.getJSON(dataUrl, function (data) {
+
+            buildChart(chart, data)
+
         });
     }
-    
-    function buildGraph() {
-        $.getJSON('./data/squatWeek.json', function (data) {
 
-            Highcharts.chart('squatGraph', {
-                // chart: {
-                //     zoomType: 'x'
-                // },
-                // title: {
-                //     text: 'USD to EUR exchange rate over time'
-                // },
-                // subtitle: {
-                //     text: document.ontouchstart === undefined ?
-                //         'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
-                // },
-                xAxis: {
-                    type: 'datetime'
-                },
-                // yAxis: {
-                //     title: {
-                //         text: 'Exchange rate'
-                //     }
-                // },
-                // legend: {
-                //     enabled: false
-                // },
-                plotOptions: {
-                    area: {
-                        fillColor: {
-                            linearGradient: {
-                                x1: 0,
-                                y1: 0,
-                                x2: 0,
-                                y2: 1
-                            },
-                            // stops: [
-                            //     [0, Highcharts.getOptions().colors[0]],
-                            //     [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                            // ]
-                        },
-                        marker: {
-                            radius: 2
-                        },
-                        lineWidth: 1,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        },
-                        threshold: null
+    function buildChart(chart, data) {
+
+        var categories = [];
+
+        for(var i = 0; i < data.length; i++) {
+            var dateParts = data[i][0].split('-');
+            categories.push(dateParts[0] + " " + months[+dateParts[1] - 1]);
+        }
+
+        Highcharts.chart(chart, {
+            chart: {
+                backgroundColor: '#F9F9F9'
+            },
+            xAxis: {
+                labels: {
+                    formatter: function() {
+                        return categories[this.value];
                     }
                 },
 
-                series: [{
-                    type: 'area',
-                    name: 'USD to EUR',
-                    data: data
-                }]
-            });
+                startOnTick: false,
+                endOnTick: false,
+                minPadding: 0,
+                maxPadding: 0,
+
+                gridLineWidth: 1
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 1,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, "rgba(0, 0, 0, .08)"],
+                            [1, "rgba(0, 0, 0, .08)"]
+                        ]
+
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1
+                }
+            },
+
+            series: [{
+                type: 'area',
+                name:'weight',
+                data: data
+            }]
         });
+
     }
 
-    buildGraph();
+    initGraph("squat");
+    initGraph("bench");
+    initGraph("deadlift");
 });
