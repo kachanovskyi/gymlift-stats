@@ -323,3 +323,84 @@ html, body {
     padding-right: 48px;
     background-position: 88% 50%;
 }
+
+/*leaderboard styles*/
+.leaderboard .profile {
+    background-color: #ffffff;
+}
+.leaderboard .sex-info {
+    color: #000000;
+}
+.leaderboard .rank-wrapper .rank,
+.leaderboard .weight-info .score {
+    background-color: #F75701;
+}
+
+.leaderboard .sex-info span {
+    color: #828282;
+    background-color: #E0E0E0;
+}
+
+.leaderboard .rank-wrapper .rank {
+    color: #ffffff;
+}
+
+.leaderboard .exercise-data p {
+    color: #828282;
+}
+.leaderboard .exercise-data span {
+    color: #F75701;
+}
+
+.leaderboard .weight-info .score,
+.weight-info .weight {
+    margin-left: 4px;
+}
+
+.leaderboard .border-right {
+    border-color: #cccccc;
+}
+
+.leaderboard .profile {
+    border-bottom: 1px solid #cccccc;
+}
+
+@media (max-width: 404px) {
+    .rank-wrapper .rank {
+        width: 16px;
+        height: 16px;
+        font-size: 10px;
+    }
+
+    .info-container {
+        padding-left: 0;
+        width: 88%;
+        display: block;
+        margin: auto;
+        max-width: none;
+        text-align: center;
+    }
+
+    .info-container p {
+        font-size: 12px;
+    }
+
+    .img-container {
+        display: block;
+        width: 88%;
+        margin: 0 auto 20px;
+    }
+    .profile-data {
+        padding: 8px 4px;
+    }
+
+    .sex-info span, .weight-info .score {
+        padding: 4px 8px;
+    }
+}
+
+@media (max-width: 320px) {
+    .img-container {
+        max-width: none;
+    }
+}

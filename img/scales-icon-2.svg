@@ -1,0 +1,14 @@
+<svg width="18" height="18" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>scales-icon</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-2910 -1219)">
+<g id="scales-icon">
+<use xlink:href="#path0_fill" transform="translate(2910 1219)" fill="#F75701"/>
+<use xlink:href="#path1_fill" transform="translate(2910 1219)" fill="#F75701"/>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 11.7567 3.46847L 10.809 7.61539L 9.01386 7.61539L 11.7567 3.46847Z"/>
+<path id="path1_fill" fill-rule="evenodd" d="M 3.375 0L 14.625 0C 16.4895 0 18 1.51062 18 3.375L 18 14.625C 18 16.4894 16.4895 18 14.625 18L 3.375 18C 1.51054 18 0 16.4894 0 14.625L 0 3.375C 0 1.51062 1.51054 0 3.375 0ZM 2.76923 4.84615L 5.53846 8.30769L 12.4615 8.30769L 15.2308 4.84615C 15.2308 4.84615 13.1538 2.07692 9 2.07692C 4.84615 2.07692 2.76923 4.84615 2.76923 4.84615Z"/>
+</defs>
+</svg>

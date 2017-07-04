@@ -1,0 +1,67 @@
+[
+  {
+    "firstName" : "Abulfaz",
+    "lastName" : "Ahmadov",
+    "weight" : 180.0,
+    "gender" : "feMALE",
+    "profilePic" : "https://scontent.xx.fbcdn.net/v/t1.0-1/12036867_871948026214740_3114729672883288809_n.jpg?oh=a6def5588fff41c520613e9c4e2408c3&oe=59D76A1A",
+    "preferredWeight" : "pound",
+    "score" : 10,
+    "rank" : 1,
+    "maxSquat" : 120.0,
+    "maxBench" : 90.0,
+    "maxDeadlift" : 0.0
+  },
+  {
+    "firstName" : "Vova",
+    "lastName" : "Kachanovksyi",
+    "weight" : 180.0,
+    "gender" : "feMALE",
+    "profilePic" : "https://scontent.xx.fbcdn.net/v/t1.0-1/12036867_871948026214740_3114729672883288809_n.jpg?oh=a6def5588fff41c520613e9c4e2408c3&oe=59D76A1A",
+    "preferredWeight" : "pound",
+    "score" : 10,
+    "rank" : 2,
+    "maxSquat" : 120.0,
+    "maxBench" : 90.0,
+    "maxDeadlift" : 0.0
+  },
+  {
+    "firstName" : "Andrew",
+    "lastName" : "Huk",
+    "weight" : 180.0,
+    "gender" : "feMALE",
+    "profilePic" : "https://scontent.xx.fbcdn.net/v/t1.0-1/12036867_871948026214740_3114729672883288809_n.jpg?oh=a6def5588fff41c520613e9c4e2408c3&oe=59D76A1A",
+    "preferredWeight" : "pound",
+    "score" : 10,
+    "rank" : 1,
+    "maxSquat" : 120.0,
+    "maxBench" : 90.0,
+    "maxDeadlift" : 0.0
+  },
+  {
+    "firstName" : "Oleh",
+    "lastName" : "Masnyk",
+    "weight" : 180.0,
+    "gender" : "feMALE",
+    "profilePic" : "https://scontent.xx.fbcdn.net/v/t1.0-1/12036867_871948026214740_3114729672883288809_n.jpg?oh=a6def5588fff41c520613e9c4e2408c3&oe=59D76A1A",
+    "preferredWeight" : "pound",
+    "score" : 10,
+    "rank" : 1,
+    "maxSquat" : 120.0,
+    "maxBench" : 90.0,
+    "maxDeadlift" : 0.0
+  },
+  {
+    "firstName" : "Misha",
+    "lastName" : "Savchuk",
+    "weight" : 180.0,
+    "gender" : "feMALE",
+    "profilePic" : "https://scontent.xx.fbcdn.net/v/t1.0-1/12036867_871948026214740_3114729672883288809_n.jpg?oh=a6def5588fff41c520613e9c4e2408c3&oe=59D76A1A",
+    "preferredWeight" : "pound",
+    "score" : 10,
+    "rank" : 1,
+    "maxSquat" : 120.0,
+    "maxBench" : 90.0,
+    "maxDeadlift" : 0.0
+  }
+]
