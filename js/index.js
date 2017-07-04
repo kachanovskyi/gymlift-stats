@@ -42,7 +42,7 @@ $(document).ready(function () {
     function loadExercises(date) {
         $.ajax({
             type: "POST",
-            url: 'https://rawgit.com/kachanovskyi/gymlift-stats/master/data/exercises.json',
+            url: './data/exercises.json',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: JSON.stringify(date),
