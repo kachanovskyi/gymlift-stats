@@ -12,7 +12,7 @@ $(document).ready(function () {
 
                 data.forEach(function (item) {
 
-                    $('<div class="profile">')
+                    var profile = $('<div class="profile">')
                         .append(
                             $('<div class="col-xs-6 profile-data border-right">')
                                 .append(
@@ -79,7 +79,12 @@ $(document).ready(function () {
                                 )
                         )
                         .appendTo($('.leaderboard'));
-                })
+
+
+                    if( item.gender === null ) {
+                        profile.find( $('.sex-info span') ).css('display', 'none');
+                    }
+                });
 
                 // var profile = $($('.profile')[0]),
                 //     rank = profile.find( $('.img-container .rank') );

@@ -16,7 +16,7 @@
     "firstName" : "Vova",
     "lastName" : "Kachanovksyi",
     "weight" : 180.0,
-    "gender" : "feMALE",
+    "gender" : null,
     "profilePic" : "https://scontent.xx.fbcdn.net/v/t1.0-1/12036867_871948026214740_3114729672883288809_n.jpg?oh=a6def5588fff41c520613e9c4e2408c3&oe=59D76A1A",
     "preferredWeight" : "pound",
     "score" : 10,
