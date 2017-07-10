@@ -365,6 +365,10 @@ html, body {
     border-bottom: 1px solid #cccccc;
 }
 
+@media (max-width: 767px) {
+
+}
+
 @media (max-width: 404px) {
     .rank-wrapper .rank {
         width: 16px;

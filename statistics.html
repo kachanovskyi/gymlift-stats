@@ -9,7 +9,7 @@
 <body>
 <section id="wrapper">
 
-    <div class="profile">
+    <div class="profile" id="profile">
         <div class="col-xs-6 profile-data border-right">
             <div class="img-container">
                 <img src="img/profile.png"/>
@@ -132,5 +132,10 @@
 </script>
 <script src="js/index.js"></script>
 <script src="js/loadProfile.js"></script>
+<script defer>
+    $(document).ready(function () {
+        loadProfile();
+    });
+</script>
 </body>
 </html>
