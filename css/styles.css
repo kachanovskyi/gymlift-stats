@@ -30,7 +30,9 @@ html, body {
 
 .profile {
     background-color: #F75701;
-    display: table;
+    /*display: table;*/
+    display: flex;
+    justify-content: center;
     width: 100%;
 }
 
@@ -42,9 +44,16 @@ html, body {
 .exercise-data {
     padding-top: 15px;
     padding-bottom: 15px;
-    display: table-cell;
-    vertical-align: middle;
-    float: none;
+    /*display: table-cell;*/
+    /*vertical-align: middle;*/
+    /*float: none;*/
+    overflow-x: hidden;
+}
+.exercise-data {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .img-container {
@@ -203,15 +212,14 @@ html, body {
 
 .exercise-data-row {
     position: relative;
-    display: table;
+    display: flex;
     width: 100%;
     background-color: #F9F9F9;
     border-bottom: 1px solid #cccccc;
 }
 .exercise-data-row .exercise-title {
-    display: table-cell;
-    float: none;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
 }
 .exercise-data-row .exercise-title p {
     font-weight: 300;
@@ -404,7 +412,13 @@ html, body {
 }
 
 @media (max-width: 320px) {
+    .exercise-data p {
+        font-size: 9px;
+    }
+    .exercise-data span {
+        font-size: 16px;
+    }
     .img-container {
-        max-width: none;
+        max-width: 44%;
     }
 }
