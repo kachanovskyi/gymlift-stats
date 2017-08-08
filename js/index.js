@@ -4,48 +4,46 @@ $(document).ready(function () {
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     var day = days[ (new Date()).getDay() ];
-    console.log(day);
     var month = months[ (new Date()).getMonth() ];
-    console.log(month);
 
-    var date = {
-        val: $("#datepicker").data('date')
-    };
+    // var date = {
+    //     val: $("#datepicker").data('date')
+    // };
+    //
+    // var dateParts = date.val.split("-");
+    //
+    // console.log((new Date(dateParts[2], (dateParts[1] - 1), dateParts[0])));
 
-    var dateParts = date.val.split("-");
+    loadExercises();
 
-    console.log((new Date(dateParts[2], (dateParts[1] - 1), dateParts[0])));
-
-    loadExercises(date);
-
-    $('#datepicker').on('change dp.change', function () {
-        date.val = $('#datepicker').data('date');
-        loadExercises(date);
-    });
-
-
-    $(".datepicker .day").on("changeDate", function (event) {
-        console.log(event.format());
-    });
-
-    $('#squatTimeframe').on("change", function () {
-        initGraph("squat", $(this).val());
-    });
-    $('#benchPressTimeframe').on("change", function () {
-        initGraph("bench", $(this).val());
-    });
-    $('#deadliftTimeframe').on("change", function () {
-        initGraph("deadlift", $(this).val());
-    });
+    // $('#datepicker').on('change dp.change', function () {
+    //     date.val = $('#datepicker').data('date');
+    //     loadExercises(date);
+    // });
 
 
-    function loadExercises(date) {
+    // $(".datepicker .day").on("changeDate", function (event) {
+    //     console.log(event.format());
+    // });
+
+    // $('#squatTimeframe').on("change", function () {
+    //     initGraph("squat", $(this).val());
+    // });
+    // $('#benchPressTimeframe').on("change", function () {
+    //     initGraph("bench", $(this).val());
+    // });
+    // $('#deadliftTimeframe').on("change", function () {
+    //     initGraph("deadlift", $(this).val());
+    // });
+
+
+    function loadExercises() {
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: './data/exercises.json',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: JSON.stringify(date),
+            // contentType: "application/json; charset=utf-8",
+            // dataType: "json",
+            // data: JSON.stringify(date),
 
             success: function (data) {
                 clearExercises();
@@ -66,6 +64,25 @@ $(document).ready(function () {
     function printExercises(dataArr) {
 
         dataArr.forEach(function (item) {
+
+            var day = $('#history').find($('#' + item.time.month + item.time.dayOfYear));
+
+            if( (day === undefined) || !day || !day.length ) {
+
+                console.log('creating new day div');
+                day = $('<div>')
+                    .addClass('exercise-day')
+                    .attr('id', item.time.month + item.time.dayOfYear)
+                    .append(
+                        $('<div class="chart-top-block">')
+                            .append(
+                                $('<p>').text(item.time.month + " " + item.time.dayOfMonth)
+                            )
+                    )
+                    .appendTo($("#history"));
+
+            }
+
             $('<div class="exercise-data-row">')
                 .append(
                     $('<div class="col-xs-6 exercise-title border-right">')
@@ -126,9 +143,11 @@ $(document).ready(function () {
                                                             var exerciseRow = $(this).parent().parent().parent().parent();
 
                                                             var data = {
-                                                                date: $("#datepicker").data('date'),
+                                                                date: item.time.dayOfMonth + '-' + (+item.time.monthValue + 1) + '-' + item.time.year,
                                                                 index: exerciseRow.index()
                                                             };
+
+                                                            console.log(exerciseRow.index());
 
                                                             $.ajax({
                                                                 type: "POST",
@@ -166,7 +185,7 @@ $(document).ready(function () {
                                 }, 200)
                         })
                 )
-                .appendTo($("#history"));
+                .appendTo(day);
         })
 
     }
@@ -197,30 +216,30 @@ $(document).ready(function () {
     //     });
     // }
     
-    function initGraph(param, timeframe) {
+    function initGraph(param) {
         var dataUrl = "./data/squatWeek.json";
         var chart = "squatGraph";
 
-        if(timeframe === "month") {
-            dataUrl = "./data/squatMonth.json";
-        }
-
         if(param === "bench") {
+
             dataUrl = "./data/benchWeek.json";
-
-            if(timeframe === "month") {
-                dataUrl = './data/benchMonth.json';
-            }
-
             chart = "benchPressGraph";
+
         } else if(param === "deadlift") {
+
             dataUrl = "./data/deadliftWeek.json";
-
-            if(timeframe === "month") {
-                dataUrl = './data/deadliftMonth.json';
-            }
-
             chart = "deadliftGraph";
+
+        } else if(param === "relative") {
+
+            dataUrl = "./data/relativeYear.json";
+            chart = "relativeGraph";
+
+        } else if(param === "total") {
+
+            dataUrl = "./data/relativeYear.json";
+            chart = "totalGraph";
+
         }
 
         $.getJSON(dataUrl, function (data) {
@@ -236,7 +255,11 @@ $(document).ready(function () {
 
         for(var i = 0; i < data.length; i++) {
             var dateParts = data[i][0].split('-');
-            categories.push(dateParts[0] + " " + months[+dateParts[1] - 1]);
+            if( dateParts[1] !== undefined ) {
+                categories.push(dateParts[0] + " " + months[+dateParts[1] - 1]);
+            } else {
+                categories.push(dateParts[0]);
+            }
         }
 
         Highcharts.chart(chart, {
@@ -291,6 +314,8 @@ $(document).ready(function () {
 
     }
 
+    initGraph("relative");
+    initGraph("total");
     initGraph("squat");
     initGraph("bench");
     initGraph("deadlift");

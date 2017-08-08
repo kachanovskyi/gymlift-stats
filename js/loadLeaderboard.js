@@ -10,6 +10,8 @@ $(document).ready(function () {
 
             success: function (data) {
 
+                $($('.leaderboard')[0]).children().remove();
+
                 data.forEach(function (item) {
 
                     var profile = $('<div class="profile">')

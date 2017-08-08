@@ -210,6 +210,10 @@ html, body {
     color: #555;
 }
 
+.exercise-day .chart-top-block {
+    border-bottom: 1px solid #cccccc;
+}
+
 .exercise-data-row {
     position: relative;
     display: flex;

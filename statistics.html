@@ -40,23 +40,23 @@
     </div>
     <div class="tabs-container">
         <ul class="nav nav-tabs">
-            <li class="active col-xs-6"><a data-toggle="tab" href="#history">History</a></li>
-            <li class="col-xs-6"><a data-toggle="tab" href="#charts">Charts</a></li>
+            <li class="active col-xs-6"><a data-toggle="tab" href="#history">Journal</a></li>
+            <li class="col-xs-6"><a data-toggle="tab" href="#charts">Progress</a></li>
         </ul>
         <div class="tab-content">
             <div id="history" class="tab-pane fade in active">
-                <div class="row">
-                    <div class='col-xs-12'>
-                        <div class="form-group">
-                            <div class='input-group date' id='datepicker'>
-                                <input type='text' class="form-control"/>
-                                <span class="input-group-addon">
-                        <i class="fa fa-calendar" aria-hidden="true"></i>
-                    </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="row">-->
+                    <!--<div class='col-xs-12'>-->
+                        <!--<div class="form-group">-->
+                            <!--<div class='input-group date' id='datepicker'>-->
+                                <!--<input type='text' class="form-control"/>-->
+                                <!--<span class="input-group-addon">-->
+                        <!--<i class="fa fa-calendar" aria-hidden="true"></i>-->
+                    <!--</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
 
                 <!--<div class="exercise-data-row">-->
                     <!--<div class="delete-container"></div>-->
@@ -67,12 +67,28 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="chart-top-block">
+                            <p>Relative</p>
+                            <div class="table-cell">
+                            </div>
+                        </div>
+                        <div id="relativeGraph" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="chart-top-block">
+                            <p>Total</p>
+                            <div class="table-cell">
+                            </div>
+                        </div>
+                        <div id="totalGraph" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="chart-top-block">
                             <p>Squat</p>
                             <div class="table-cell">
-                                <select id="squatTimeframe" name="squatTimeframe" class="squat timeframe-select float-right">
-                                    <option value="week" selected>This week</option>
-                                    <option value="month">This month</option>
-                                </select>
                             </div>
                         </div>
                         <div id="squatGraph" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
@@ -83,10 +99,6 @@
                         <div class="chart-top-block">
                             <p>Bench Press</p>
                             <div class="table-cell">
-                                <select id="benchPressTimeframe" name="benchPressTimeframe" class="bench-press timeframe-select float-right">
-                                    <option value="week" selected>This week</option>
-                                    <option value="month">This month</option>
-                                </select>
                             </div>
                         </div>
                         <div id="benchPressGraph" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
@@ -97,10 +109,6 @@
                         <div class="chart-top-block">
                             <p>Deadlift</p>
                             <div class="table-cell">
-                                <select id="deadliftTimeframe" name="deadliftTimeframe" class="deadlift timeframe-select float-right">
-                                    <option value="week" selected>This week</option>
-                                    <option value="month">This month</option>
-                                </select>
                             </div>
                         </div>
                         <div id="deadliftGraph" style="min-width: 310px; height: 400px; margin: 0 auto"></div>

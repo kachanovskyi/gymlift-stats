@@ -1,5 +1,4 @@
 function loadProfile(param) {
-    console.log('loading profile');
     $.ajax({
         type: "GET",
         url: './data/profile.json',
