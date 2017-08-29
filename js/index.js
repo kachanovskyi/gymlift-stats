@@ -252,6 +252,7 @@ $(document).ready(function () {
     function buildChart(chart, data) {
 
         var categories = [];
+        var seriesName = chart === "relativeGraph" ? "score" : "weight";
 
         for(var i = 0; i < data.length; i++) {
             var dateParts = data[i][0].split('-');
@@ -307,7 +308,7 @@ $(document).ready(function () {
 
             series: [{
                 type: 'area',
-                name:'weight',
+                name:seriesName,
                 data: data
             }]
         });
