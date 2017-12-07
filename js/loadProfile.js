@@ -28,7 +28,7 @@ function loadProfile(param) {
                 gender.css('display', 'none');
             }
 
-            profile.find( $('.img-container img') ).attr('src', data.profilePic);
+            profile.find( $('.img-container img') ).attr('src', './img/branson.png');
             profile.find( $('.weight-info .weight') ).text(data.weight + " lb");
             profile.find( $('.weight-info .score') ).text("SCORE: " + data.score);
 

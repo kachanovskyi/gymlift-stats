@@ -18,6 +18,8 @@
         "calendarType": "iso8601"
       }
     },
+    "effort": 5,
+    "note": "okay",
     "exerciseName": "Low bar squat",
     "exerciseType": "Squat",
     "oneRepetitionMaximum": 135.0

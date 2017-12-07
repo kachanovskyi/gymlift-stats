@@ -3,7 +3,42 @@ html, body {
     overflow-x: hidden;
     font-family: "Open Sans", sans-serif;
 }
+.form-group .input-group.date {
+    /*width: calc(100% - 66px);*/
+}
 
+.calendar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 52px;
+}
+
+.calendar > .form-group {
+    display: inline-flex;
+    width: calc(100% - 80px);
+
+}
+
+.calendar .input-group-addon.reset {
+    border-width: 0 0 1px 0;
+    background-color: #F9F9F9;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.calendar .input-group-addon.reset i.fa {
+    opacity: 0.8;
+}
+
+.calendar .input-group-addon.reset:hover i.fa {
+    opacity: 1;
+}
 .table-cell {
     display: table-cell;
     vertical-align: middle;
@@ -11,7 +46,16 @@ html, body {
 .float-right {
     float: right;
 }
+.modal-header, h4, .close {
+	background-color: #5cb85c;
+	color: white !important;
+	text-align: center;
+	font-size: 30px;
+}
 
+.modal-footer {
+	background-color: #f9f9f9;
+}
 .btn-white,
 .btn-simple {
     padding: 8px 24px;
@@ -34,6 +78,14 @@ html, body {
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+.leaderboard .profile{
+	cursor: pointer;
+}
+
+.leaderboard .profile:hover{
+	background: #efefef;
 }
 
 .border-right {
@@ -194,9 +246,9 @@ html, body {
 
 
 .form-group .input-group-addon {
-    width: 52px;
-    border-width: 0 0 1px 1px;
-    background-color: #F9F9F9;
+    width: 80px;
+    border-width: 0 1px 1px 0;
+    background-color: #F9F9F9 ;
 }
 .form-group .input-group-addon:hover {
     cursor: pointer;
@@ -204,17 +256,24 @@ html, body {
 
 .form-group .input-group-addon .fa {
     font-size: 22px;
-    color: #828282;
+    color: #828282 ;
 }
 .form-group .input-group-addon:hover .fa {
     color: #555;
 }
+
 
 .exercise-day .chart-top-block {
     border-bottom: 1px solid #cccccc;
 }
 
 .exercise-data-row {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.exercise-data-row .inner {
     position: relative;
     display: flex;
     width: 100%;
@@ -231,6 +290,22 @@ html, body {
     color: #333333;
     margin: 0;
 }
+
+.exercise-data-row .exercise-title .fa.note {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+}
+
+.exercise-data-row .note-area {
+    width: 100%;
+    word-wrap: break-word;
+    background: #FFFFFF;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #333333;
+}
+
 .exercise-data-row .exercise-data p {
     color: #828282;
 }
@@ -278,6 +353,147 @@ html, body {
     display: table-cell;
     vertical-align: middle;
 }
+
+/*<!--loader styles*/
+@-webkit-keyframes up {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(-30deg);
+    }
+}
+@-moz-keyframes up {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(-30deg);
+    }
+}
+@-o-keyframes up {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(-30deg);
+    }
+}
+@keyframes up {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(-30deg);
+    }
+}
+@-webkit-keyframes down {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(30deg);
+    }
+}
+@-moz-keyframes down {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(30deg);
+    }
+}
+@-o-keyframes down {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(30deg);
+    }
+}
+@keyframes down {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(30deg);
+    }
+}
+@-webkit-keyframes r-to-l {
+    100% {
+        margin-left: -1px;
+    }
+}
+@-moz-keyframes r-to-l {
+    100% {
+        margin-left: -1px;
+    }
+}
+@-o-keyframes r-to-l {
+    100% {
+        margin-left: -1px;
+    }
+}
+@keyframes r-to-l {
+    100% {
+        margin-left: -1px;
+    }
+}
+
+body .pacman:before, body .pacman:after {
+    content: '';
+    position: absolute;
+    background: #f77c15;
+    width: 100px;
+    height: 50px;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    border-radius: 50px 50px 0 0;
+    -webkit-animation: up 0.4s infinite;
+    -moz-animation: up 0.4s infinite;
+    -o-animation: up 0.4s infinite;
+    animation: up 0.4s infinite;
+}
+body .pacman:after {
+    margin-top: -1px;
+    border-radius: 0 0 50px 50px;
+    -webkit-animation: down 0.4s infinite;
+    -moz-animation: down 0.4s infinite;
+    -o-animation: down 0.4s infinite;
+    animation: down 0.4s infinite;
+}
+body .dot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+    margin-left: 30px;
+    border-radius: 50%;
+    background: #ccc;
+    z-index: -1;
+    box-shadow: 30px 0 0 #ccc, 60px 0 0 #ccc, 90px 0 0 #ccc, 120px 0 0 #ccc, 150px 0 0 #ccc;
+    -webkit-animation: r-to-l 0.4s infinite;
+    -moz-animation: r-to-l 0.4s infinite;
+    -o-animation: r-to-l 0.4s infinite;
+    animation: r-to-l 0.4s infinite;
+}
+
+#loader .modal-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#loader .modal-content {
+    background: transparent;
+    border: none;
+}
+/*<!--loader styles end*/
 
 /*Datepicker styles*/
 .bootstrap-datetimepicker-widget.dropdown-menu {
@@ -425,4 +641,12 @@ html, body {
     .img-container {
         max-width: 44%;
     }
+}
+
+.exercise-data-row .exercise-title p {
+    font-weight: 300;
+    font-size: 16px;
+    color: #333333 ;
+    margin: 0;
+    word-wrap: break-word;
 }

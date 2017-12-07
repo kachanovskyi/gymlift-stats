@@ -1,25 +1,46 @@
 $(document).ready(function () {
 
-    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    $('#loader').modal();
+    $('#loader').modal("hide");
+
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    var day = days[ (new Date()).getDay() ];
-    var month = months[ (new Date()).getMonth() ];
+    var day = days[(new Date()).getDay()];
+    var month = months[(new Date()).getMonth()];
 
-    // var date = {
-    //     val: $("#datepicker").data('date')
-    // };
-    //
-    // var dateParts = date.val.split("-");
-    //
+    var $datepicker = $('#datepicker');
+
+    $datepicker.datetimepicker({
+        defaultDate: new Date(),
+        format: 'DD-MM-YYYY',
+        pickTime: false,
+        endDate: '+0d'
+    });
+
+    var date = {
+        val: $datepicker.data('date')
+    };
+
+    var today = date.val;
+
+    var dateParts = date.val.split("-");
+
     // console.log((new Date(dateParts[2], (dateParts[1] - 1), dateParts[0])));
 
     loadExercises();
 
-    // $('#datepicker').on('change dp.change', function () {
-    //     date.val = $('#datepicker').data('date');
-    //     loadExercises(date);
-    // });
+    $datepicker.on('change dp.change', function () {
+        date.val = $('#datepicker').data('date');
+        loadExercises(date);
+    });
+
+    $('#resetDate').on("click", function () {
+
+        $datepicker.datetimepicker('update');
+        $datepicker.datetimepicker().children('input').val(today);
+
+    });
 
 
     // $(".datepicker .day").on("changeDate", function (event) {
@@ -36,7 +57,7 @@ $(document).ready(function () {
     //     initGraph("deadlift", $(this).val());
     // });
 
-
+    //TODO
     function loadExercises() {
         $.ajax({
             type: "GET",
@@ -67,175 +88,193 @@ $(document).ready(function () {
 
             var day = $('#history').find($('#' + item.time.month + item.time.dayOfYear));
 
-            if( (day === undefined) || !day || !day.length ) {
+            if ((day === undefined) || !day || !day.length) {
 
-                console.log('creating new day div');
+                // TODO
                 day = $('<div>')
                     .addClass('exercise-day')
                     .attr('id', item.time.month + item.time.dayOfYear)
                     .append(
                         $('<div class="chart-top-block">')
                             .append(
-                                $('<p>').text(item.time.month + " " + item.time.dayOfMonth)
+                                $('<p>').text(item.time.dayOfWeek + ", " + item.time.month + " " + item.time.dayOfMonth)
                             )
                     )
                     .appendTo($("#history"));
 
             }
-
-            $('<div class="exercise-data-row">')
+            //TODO
+            var exerciseTitle = $('<div class="col-xs-4 exercise-title border-right">')
                 .append(
-                    $('<div class="col-xs-6 exercise-title border-right">')
-                        .append(
-                            $('<p>').text(item.exerciseName)
-                        )
-                )
-                .append(
-                    $('<div class="col-xs-2 exercise-data border-right">')
-                        .append(
-                            $('<p>').text("Weight")
-                        )
-                        .append(
-                            $('<span>').text(item.weight)
-                        )
-                )
-                .append(
-                    $('<div class="col-xs-2 exercise-data border-right">')
-                        .append(
-                            $('<p>').text("Reps")
-                        )
-                        .append(
-                            $('<span>').text(item.repetitions)
-                        )
-                )
-                .append(
-                    $('<div class="col-xs-2 exercise-data delete">')
-                        .append(
-                            $('<i>')
-                                .addClass("fa fa-trash-o")
-                                .attr("aria-hidden", true)
-                        )
-                        .on("click", function () {
+                    $('<p>').text(item.exerciseName)
+                );
 
-                            var height = $(this).parent().height();
+            if (item.note) {
+                exerciseTitle
+                    .append(
+                        $('<i class="fa fa-info-circle note" aria-hidden="true"></i>')
+                    )
+                    .on("click", function () {
+                        var note = $(this).parent().parent().find('.note-area');
 
-                            $('.delete-container').animate({
-                                "left": "+=100%"
-                            }, 200, function () {
-                                $(this).remove();
-                            });
+                        $('.note-area').each(function () {
+                            if($(this).is(":visible")) {
+                                $(this).slideUp("fast");
+                            }
+                        });
 
-                            $('<div class="delete-container">')
-                                .css('height', height)
-                                .css('left', "100%")
+                        if(note.is(':hidden')) {
+                            note.slideDown("fast");
+                        } else {
+                            note.slideUp("fast");
+                        }
+                    });
+            }
+
+            var exerciseRow = $('<div class="exercise-data-row">')
+                .append(
+                    $('<div class="inner">')
+                        .append(
+                            exerciseTitle
+                        )
+                        .append(
+                            $('<div class="col-xs-2 exercise-data border-right">')
                                 .append(
-                                    $('<p>').text('Are you sure?')
+                                    $('<p>').text("Weight")
                                 )
                                 .append(
-                                    $('<div class="table-cell">')
+                                    $('<span>').text(item.weight)
+                                )
+                        )
+                        .append(
+                            $('<div class="col-xs-2 exercise-data border-right">')
+                                .append(
+                                    $('<p>').text("Reps")
+                                )
+                                .append(
+                                    $('<span>').text(item.repetitions)
+                                )
+                        )
+                        .append(
+                            $('<div class="col-xs-2 exercise-data border-right">')
+                                .append(
+                                    $('<p>').text("RPE")
+                                )
+                                .append(
+                                    $('<span>').text(item.effort)
+                                )
+                        )
+                        .append(
+                            $('<div class="col-xs-2 exercise-data delete">')
+                                .append(
+                                    $('<i>')
+                                        .addClass("fa fa-trash-o")
+                                        .attr("aria-hidden", true)
+                                )
+                                .on("click", function () {
+
+                                    var height = $(this).parent().height();
+
+                                    $('.delete-container').animate({
+                                        "left": "+=100%"
+                                    }, 200, function () {
+                                        $(this).remove();
+                                    });
+
+                                    $('<div class="delete-container">')
+                                        .css('height', height)
+                                        .css('left', "100%")
                                         .append(
-                                            $('<div class="float-right">')
+                                            $('<p>').text('Are you sure?')
+                                        )
+                                        .append(
+                                            $('<div class="table-cell">')
                                                 .append(
-                                                    $('<a class="btn-white">')
-                                                        .text('Delete')
-                                                        .on("click", function () {
+                                                    $('<div class="float-right">')
+                                                        .append(
+                                                            $('<a class="btn-white">')
+                                                                .text('Delete')
+                                                                .on("click", function () {
 
-                                                            var exerciseRow = $(this).parent().parent().parent().parent();
+                                                                    var exerciseRow = $(this).parent().parent().parent().parent();
 
-                                                            var data = {
-                                                                date: item.time.dayOfMonth + '-' + (+item.time.monthValue + 1) + '-' + item.time.year,
-                                                                index: exerciseRow.index()
-                                                            };
+                                                                    var data = {
+                                                                        date: item.time.dayOfMonth + '-' + (+item.time.monthValue + 1) + '-' + item.time.year,
+                                                                        index: exerciseRow.index()
+                                                                    };
 
-                                                            console.log(exerciseRow.index());
+                                                                    $.ajax({
+                                                                        type: "POST",
+                                                                        url: './data/exercises.json',
+                                                                        contentType: "application/json; charset=utf-8",
+                                                                        dataType: "json",
+                                                                        data: JSON.stringify(data),
 
-                                                            $.ajax({
-                                                                type: "POST",
-                                                                url: './data/exercises.json',
-                                                                contentType: "application/json; charset=utf-8",
-                                                                dataType: "json",
-                                                                data: JSON.stringify(data),
-
-                                                                success: function (data) {
-                                                                    exerciseRow.remove();
-                                                                },
-                                                                error: function () {
-                                                                    console.log("Internal Server Error. Not possible to delete exercise data.");
-                                                                }
-                                                            });
-                                                        })
-                                                )
-                                                .append(
-                                                    $('<a class="btn-simple">')
-                                                        .text('Cancel')
-                                                        .on("click", function () {
-                                                            $(this).parent().parent().parent()
-                                                                .animate({
-                                                                    "left": "+=100%"
-                                                                }, 200, function () {
-                                                                    $(this).remove();
-                                                                });
-                                                        })
+                                                                        success: function (data) {
+                                                                            exerciseRow.remove();
+                                                                        },
+                                                                        error: function () {
+                                                                            console.log("Internal Server Error. Not possible to delete exercise data.");
+                                                                        }
+                                                                    });
+                                                                })
+                                                        )
+                                                        .append(
+                                                            $('<a class="btn-simple">')
+                                                                .text('Cancel')
+                                                                .on("click", function () {
+                                                                    $(this).parent().parent().parent()
+                                                                        .animate({
+                                                                            "left": "+=100%"
+                                                                        }, 200, function () {
+                                                                            $(this).remove();
+                                                                        });
+                                                                })
+                                                        )
                                                 )
                                         )
-                                )
-                                .appendTo($(this).parent())
-                                .animate({
-                                    'left': '-=100%'
-                                }, 200)
-                        })
+                                        .appendTo($(this).parent())
+                                        .animate({
+                                            'left': '-=100%'
+                                        }, 200)
+                                })
+                        )
+                );
+
+
+            //TODO
+            if (item.note) {
+                exerciseRow.append(
+                    $('<div class="note-area">')
+                        .text(item.note)
+                        .hide()
                 )
-                .appendTo(day);
+            }
+            exerciseRow.appendTo(day);
         })
 
     }
 
-    // function loadSquatGraph(param) {
-    //     $.ajax({
-    //         type: "GET",
-    //         url: './data/profile.json',
-    //         contentType: "application/json; charset=utf-8",
-    //         dataType: "json",
-    //         // data: JSON.stringify(date),
-    //
-    //         success: function (data) {
-    //
-    //             var profile = $($('.profile')[0]),
-    //                 rank = profile.find( $('.img-container .rank') );
-    //
-    //             if( data.rank !== null ) {
-    //                 rank.text(data.rank);
-    //             } else {
-    //                 rank.css('display', 'none');
-    //             }
-    //
-    //         },
-    //         error: function () {
-    //             console.log("Internal Server Error. Not possible to load profile data.");
-    //         }
-    //     });
-    // }
-    
     function initGraph(param) {
         var dataUrl = "./data/squatWeek.json";
         var chart = "squatGraph";
 
-        if(param === "bench") {
+        if (param === "bench") {
 
             dataUrl = "./data/benchWeek.json";
             chart = "benchPressGraph";
 
-        } else if(param === "deadlift") {
+        } else if (param === "deadlift") {
 
             dataUrl = "./data/deadliftWeek.json";
             chart = "deadliftGraph";
 
-        } else if(param === "relative") {
+        } else if (param === "relative") {
 
             dataUrl = "./data/relativeYear.json";
             chart = "relativeGraph";
 
-        } else if(param === "total") {
+        } else if (param === "total") {
 
             dataUrl = "./data/relativeYear.json";
             chart = "totalGraph";
@@ -254,9 +293,9 @@ $(document).ready(function () {
         var categories = [];
         var seriesName = chart === "relativeGraph" ? "score" : "weight";
 
-        for(var i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.length; i++) {
             var dateParts = data[i][0].split('-');
-            if( dateParts[1] !== undefined ) {
+            if (dateParts[1] !== undefined) {
                 categories.push(dateParts[0] + " " + months[+dateParts[1] - 1]);
             } else {
                 categories.push(dateParts[0]);
@@ -269,7 +308,7 @@ $(document).ready(function () {
             },
             xAxis: {
                 labels: {
-                    formatter: function() {
+                    formatter: function () {
                         return categories[this.value];
                     }
                 },
@@ -308,7 +347,7 @@ $(document).ready(function () {
 
             series: [{
                 type: 'area',
-                name:seriesName,
+                name: seriesName,
                 data: data
             }]
         });
